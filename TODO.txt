@@ -1,0 +1,31 @@
+TODO List
+
+1. Pet Leveling System
+   - Implement XP gain based on specific actions (combat, mining, farming, etc.) .(DONE)
+   - Configurable XP rates and EXP sharing (pets gain EXP even when not deployed) (DONE)
+
+2. Pet Stats & Abilities
+   - Each pet provides stats or abilities based on type and level. (Done)
+   - Auto-ability or passive effects while active (DONE)
+   - Configurable ability triggers and bonuses (DONE)
+
+3. Rarity System
+   - Implement pet rarity/tier system (COMMON, RARE, EPIC, LEGENDARY, MYTHIC) (DONE)
+   - Rarity affects abilities and bonuses (DONE)
+
+4. Pet Customization
+   - Add pet skins/models for visual customization (Done)
+   - Implement pet items (Done)
+
+5. GUI
+   - Create GUI for equipping, leveling, and viewing pet stats. (DONE)
+
+6. Pet Management
+   - Pet sorting (based on rarity/tier) (Done)
+   - Pet Day Care (upgrade pet tier over time)
+   - Auto Pet Rules
+
+7. Integrations
+   - Support for EcoItems (check requirements or provide boosts)
+
+Reference: https://wiki.hypixel.net/Pets

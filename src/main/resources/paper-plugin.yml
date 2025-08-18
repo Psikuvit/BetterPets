@@ -1,0 +1,21 @@
+name: BetterPets
+version: '1.0'
+main: me.psikuvit.betterPets.Main
+api-version: '1.20'
+authors: [Psikuvit]
+dependencies:
+  server:
+    PlaceholderAPI:
+      load: BEFORE
+      required: false
+    EcoSkills:
+      load: BEFORE
+      required: true
+
+required: false
+
+commands:
+  pet:
+    description: Main command for managing pets
+    usage: /<command> [list|select|deactivate]
+    aliases: [pets]
