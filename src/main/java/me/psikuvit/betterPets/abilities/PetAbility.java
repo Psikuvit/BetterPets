@@ -19,7 +19,18 @@ public record PetAbility(String name, List<String> description, IAbility ability
         this.ability.handleEvent(event, owner);
     }
 
-    public double getStatValueAtLevel(int level) {
-        return this.ability.getAbilityStat().getValueAtLevel(level);
+    
+    public double getStatValueAtLevel(int level, int index) {
+        AbilityStats stats = this.ability.getAbilityStat();
+        if (stats == null || stats.getStatAmplifiers().isEmpty()) {
+            return 0.0;
+        }
+        
+        AbilityStats.StatAmplifier firstStat = stats.getStatAmplifiers().get(index);
+        return firstStat.getStatAtLevel(level);
+    }
+
+    public AbilityStats getAbilityStats() {
+        return this.ability.getAbilityStat();
     }
 }

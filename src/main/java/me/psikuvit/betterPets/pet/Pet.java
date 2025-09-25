@@ -19,7 +19,6 @@ import me.psikuvit.betterPets.utils.enums.XPSource;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Location;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Interaction;
 import org.bukkit.entity.ItemDisplay;
 import org.bukkit.entity.Player;
@@ -225,11 +224,6 @@ public abstract class Pet implements Cloneable {
 
     public boolean isActive() {
         return active;
-    }
-
-    public void spawnMount(Location location, Player player) {
-        Entity entity = location.getWorld().spawnEntity(location, ((Mountable) this).getMountType());
-
     }
 
     public void spawnHead(Location location, Player player) {

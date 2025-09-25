@@ -1,6 +1,6 @@
 package me.psikuvit.betterPets.abilities.ender_dragon;
 
-import me.psikuvit.betterPets.abilities.AbilityStat;
+import me.psikuvit.betterPets.abilities.AbilityStats;
 import me.psikuvit.betterPets.abilities.IAbility;
 import org.bukkit.entity.Player;
 
@@ -16,7 +16,7 @@ public class OneWithTheDragon implements IAbility {
     }
 
     @Override
-    public AbilityStat getAbilityStat() {
-        return new AbilityStat(0.3, 0.3);
+    public AbilityStats getAbilityStat() {
+        return null;
     }
 }

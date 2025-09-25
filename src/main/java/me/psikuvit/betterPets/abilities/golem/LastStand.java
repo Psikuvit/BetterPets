@@ -1,6 +1,6 @@
 package me.psikuvit.betterPets.abilities.golem;
 
-import me.psikuvit.betterPets.abilities.AbilityStat;
+import me.psikuvit.betterPets.abilities.AbilityStats;
 import me.psikuvit.betterPets.abilities.IAbility;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
@@ -30,7 +30,7 @@ public class LastStand implements IAbility {
     }
 
     @Override
-    public AbilityStat getAbilityStat() {
+    public AbilityStats getAbilityStat() {
         return null;
     }
 }

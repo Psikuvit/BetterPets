@@ -1,23 +1,24 @@
 package me.psikuvit.betterPets.abilities.sheep;
 
-import me.psikuvit.betterPets.abilities.AbilityStat;
+import me.psikuvit.betterPets.abilities.AbilityStats;
 import me.psikuvit.betterPets.abilities.IAbility;
+import me.psikuvit.betterPets.utils.enums.Stats;
 import org.bukkit.entity.Player;
 
 public class Overheal implements IAbility {
 
     @Override
     public void onEquip(Player paramPlayer) {
-
+        applyAbilityStats(paramPlayer);
     }
 
     @Override
     public void onUnequip(Player paramPlayer) {
-
+        removeAbilityStats(paramPlayer);
     }
 
     @Override
-    public AbilityStat getAbilityStat() {
-        return new AbilityStat(0.1, 0.1);
+    public AbilityStats getAbilityStat() {
+        return new AbilityStats().addStatAmplifier(Stats.HEALTH, 0.5, 0.5);
     }
 }

@@ -5,7 +5,6 @@ import me.psikuvit.betterPets.autopet.TriggerType;
 import me.psikuvit.betterPets.data.PlayerData;
 import me.psikuvit.betterPets.database.DatabaseManager;
 import me.psikuvit.betterPets.menu.PetGUI;
-import me.psikuvit.betterPets.pet.Mountable;
 import me.psikuvit.betterPets.pet.Pet;
 import me.psikuvit.betterPets.utils.PetUtils;
 import me.psikuvit.betterPets.utils.enums.Rarity;
@@ -57,22 +56,18 @@ public class PlayerPetManager {
 
     public boolean activatePet(Player player, Pet pet) {
         PlayerData data = getPlayerData(player);
-        if (data == null || !data.hasPet(pet)) {
+        if (data == null) {
             return false;
         }
 
         pet.setOwner(player);
         data.activatePet(pet);
-        if (pet instanceof Mountable mountable) {
-            pet.spawnMount(player.getLocation(), player);
-        } else {
-            pet.spawnHead(player.getLocation(), player);
-        }
+        pet.spawnHead(player.getLocation(), player);
 
         for (PlayerData otherData : playerDataMap.values()) {
             otherData.applyVisibility();
         }
-        data.setOfflinePet(null);
+        data.setOfflinePetId(null);
         return true;
     }
 
@@ -179,19 +174,6 @@ public class PlayerPetManager {
     public boolean hasAutoPetRule(Player player, TriggerType triggerType) {
         PlayerData data = getPlayerData(player);
         return data != null && data.hasAutoPetRule(triggerType);
-    }
-
-    // Offline Pet Methods
-    public Pet getOfflinePet(Player player) {
-        PlayerData data = getPlayerData(player);
-        return data != null ? data.getOfflinePet() : null;
-    }
-
-    public void setOfflinePet(Player player, Pet pet) {
-        PlayerData data = getPlayerData(player);
-        if (data != null) {
-            data.setOfflinePet(pet);
-        }
     }
 
     // Upgrading Pet Methods

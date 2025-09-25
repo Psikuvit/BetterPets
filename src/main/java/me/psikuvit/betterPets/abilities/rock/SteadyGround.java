@@ -1,22 +1,23 @@
 package me.psikuvit.betterPets.abilities.rock;
 
-import me.psikuvit.betterPets.abilities.AbilityStat;
+import me.psikuvit.betterPets.abilities.AbilityStats;
 import me.psikuvit.betterPets.abilities.IAbility;
+import me.psikuvit.betterPets.utils.enums.Stats;
 import org.bukkit.entity.Player;
 
 public class SteadyGround implements IAbility {
     @Override
     public void onEquip(Player paramPlayer) {
-
+        applyAbilityStats(paramPlayer);
     }
 
     @Override
     public void onUnequip(Player paramPlayer) {
-
+        removeAbilityStats(paramPlayer);
     }
 
     @Override
-    public AbilityStat getAbilityStat() {
-        return new AbilityStat(1, 0.003);
+    public AbilityStats getAbilityStat() {
+        return new AbilityStats().addStatAmplifier(Stats.STRENGTH, 0.5, 0.5);
     }
 }

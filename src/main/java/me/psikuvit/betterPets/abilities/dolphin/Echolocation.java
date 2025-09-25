@@ -1,23 +1,24 @@
 package me.psikuvit.betterPets.abilities.dolphin;
 
-import me.psikuvit.betterPets.abilities.AbilityStat;
+import me.psikuvit.betterPets.abilities.AbilityStats;
 import me.psikuvit.betterPets.abilities.IAbility;
+import me.psikuvit.betterPets.utils.enums.Stats;
 import org.bukkit.entity.Player;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 
 public class Echolocation implements IAbility {
+
     @Override
     public void onEquip(Player owner) {
-        owner.addPotionEffect(new PotionEffect(PotionEffectType.DOLPHINS_GRACE, 20 * 60, 1, true, false));
+        applyAbilityStats(owner);
     }
 
     @Override
     public void onUnequip(Player owner) {
+        removeAbilityStats(owner);
     }
 
     @Override
-    public AbilityStat getAbilityStat() {
-        return new AbilityStat(0.0D, 0.0D);
+    public AbilityStats getAbilityStat() {
+        return new AbilityStats().addStatAmplifier(Stats.SEA_CREATURE_CHANCE, 0.1, 0.1);
     }
 }

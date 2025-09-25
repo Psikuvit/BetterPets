@@ -214,10 +214,12 @@ public class Messages {
         for (PetAbility ability : pet.getAbilities()) {
             lore.add(deserialize("<gold>" + ability.name() + "</gold>"));
 
+            int index = 0;
             for (String line : ability.description()) {
                 if (line.contains("<stat>")) {
                     line = line.replace("<stat>",
-                            (ability.getStatValueAtLevel(pet.getLevel())) + "");
+                            (ability.getStatValueAtLevel(pet.getLevel(), index)) + "");
+                    index++;
                 }
                 lore.add(deserialize("<gray>" + line + "</gray>"));
             }

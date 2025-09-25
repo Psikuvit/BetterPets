@@ -27,7 +27,7 @@ public class PlayerData implements Serializable {
     private final Set<Pet> sharedPets;
     private final Set<AutoPetRule> autoPetRules;
     private Pet activePet;
-    private Pet offlinePet;
+    private String offlinePetId;
     private Pet upgradingPet;
     private int selectedPage;
     private SortType sortType;
@@ -40,7 +40,7 @@ public class PlayerData implements Serializable {
         this.sharedPets = new HashSet<>();
         this.autoPetRules = new HashSet<>();
         this.activePet = null;
-        this.offlinePet = null;
+        this.offlinePetId = null;
         this.upgradingPet = null;
         this.selectedPage = 0;
         this.sortType = SortType.DEFAULT;
@@ -66,12 +66,12 @@ public class PlayerData implements Serializable {
         return new HashSet<>(this.ownedPets);
     }
 
-    public Pet getOfflinePet() {
-        return offlinePet;
+    public String getOfflinePetId() {
+        return offlinePetId;
     }
 
-    public void setOfflinePet(Pet offlinePet) {
-        this.offlinePet = offlinePet;
+    public void setOfflinePetId(String offlinePetId) {
+        this.offlinePetId = offlinePetId;
     }
 
     public Pet getPetByUUID(UUID petUUID) {
@@ -243,7 +243,7 @@ public class PlayerData implements Serializable {
         data.put("petRules", rulesData);
 
         data.put("activePet", activePet != null ? activePet.serialize() : null);
-        data.put("offlinePet", offlinePet != null ? offlinePet.serialize() : null);
+        data.put("offlinePet", offlinePetId);
         data.put("petUpgrade", upgradingPet != null ? upgradingPet.serialize() : null);
 
         data.put("selectedPage", selectedPage);
@@ -287,9 +287,7 @@ public class PlayerData implements Serializable {
         if (activePetData != null) activePet = Pet.deserialize(activePetData);
         else activePet = null;
 
-        Map<String, Object> offlinePetData = (Map<String, Object>) data.get("offlinePet");
-        if (offlinePetData != null) offlinePet = Pet.deserialize(offlinePetData);
-        else offlinePet = null;
+        offlinePetId = (String) data.get("offlinePet");
 
         Map<String, Object> upgradingPetData = (Map<String, Object>) data.get("petUpgrade");
         if (upgradingPetData != null) upgradingPet = Pet.deserialize(upgradingPetData);
@@ -369,7 +367,7 @@ public class PlayerData implements Serializable {
                 ", ownedPets=" + ownedPets +
                 ", sharedPets=" + sharedPets +
                 ", activePet=" + activePet +
-                ", offlinePet=" + offlinePet +
+                ", offlinePet=" + offlinePetId +
                 ", selectedPage=" + selectedPage +
                 ", sortType=" + sortType +
                 ", visibilityType=" + visibilityType +

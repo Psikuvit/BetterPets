@@ -5,9 +5,8 @@ import me.psikuvit.betterPets.utils.enums.Rarity;
 public class IProgress {
 
     public static int getRequiredExp(int level, Rarity rarity) {
-        if (level >= 100) {
+        if (level >= 100)
             return -1;
-        }
 
         return switch (rarity) {
             case COMMON -> switch (level) {

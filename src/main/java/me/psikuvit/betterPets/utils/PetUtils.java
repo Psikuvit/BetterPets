@@ -128,7 +128,7 @@ public class PetUtils {
         return UUID.nameUUIDFromBytes(("better_pets/stat/" + stat.getId() + "/" + ModifierOperation.ADD.name()).getBytes());
     }
 
-    public static UUID createOtherStatModifier(Stat stat, ModifierOperation operation) {
-        return UUID.nameUUIDFromBytes(("better_pets/modifier/" + stat.getId() + "/" + operation.name()).getBytes());
+    public static UUID createOtherStatModifier(Stat stat) {
+        return UUID.nameUUIDFromBytes(("better_pets/modifier/" + stat.getId() + "/" + ModifierOperation.ADD.name()).getBytes());
     }
 }

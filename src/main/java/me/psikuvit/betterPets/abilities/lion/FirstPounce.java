@@ -1,6 +1,6 @@
 package me.psikuvit.betterPets.abilities.lion;
 
-import me.psikuvit.betterPets.abilities.AbilityStat;
+import me.psikuvit.betterPets.abilities.AbilityStats;
 import me.psikuvit.betterPets.abilities.IAbility;
 import org.bukkit.entity.Player;
 
@@ -16,7 +16,7 @@ public class FirstPounce implements IAbility {
     }
 
     @Override
-    public AbilityStat getAbilityStat() {
-        return new AbilityStat(1, 1);
+    public AbilityStats getAbilityStat() {
+        return null;
     }
 }

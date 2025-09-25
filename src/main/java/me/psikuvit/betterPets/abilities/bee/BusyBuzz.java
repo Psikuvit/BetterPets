@@ -1,23 +1,28 @@
 package me.psikuvit.betterPets.abilities.bee;
 
-import me.psikuvit.betterPets.abilities.AbilityStat;
+import me.psikuvit.betterPets.abilities.AbilityStats;
 import me.psikuvit.betterPets.abilities.IAbility;
+import me.psikuvit.betterPets.utils.enums.Stats;
 import org.bukkit.entity.Player;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 
 public class BusyBuzz implements IAbility {
+
     @Override
     public void onEquip(Player owner) {
-        owner.addPotionEffect(new PotionEffect(PotionEffectType.HASTE, 20 * 30, 1, true, false));
+        applyAbilityStats(owner);
     }
 
     @Override
     public void onUnequip(Player owner) {
+        removeAbilityStats(owner);
     }
 
     @Override
-    public AbilityStat getAbilityStat() {
-        return new AbilityStat(0.0D, 0.0D);
+    public AbilityStats getAbilityStat() {
+        AbilityStats abilityStats = new AbilityStats();
+        abilityStats.addStatAmplifier(Stats.FARMING_FORTUNE, 0.3, 0.3);
+        abilityStats.addStatAmplifier(Stats.FORAGING_FORTUNE, 0.3, 0.3);
+        abilityStats.addStatAmplifier(Stats.MINING_FORTUNE, 0.3, 0.3);
+        return abilityStats;
     }
 }

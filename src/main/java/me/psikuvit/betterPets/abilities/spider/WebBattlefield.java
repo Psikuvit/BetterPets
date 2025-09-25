@@ -1,6 +1,6 @@
 package me.psikuvit.betterPets.abilities.spider;
 
-import me.psikuvit.betterPets.abilities.AbilityStat;
+import me.psikuvit.betterPets.abilities.AbilityStats;
 import me.psikuvit.betterPets.abilities.IAbility;
 import org.bukkit.entity.Player;
 
@@ -16,7 +16,7 @@ public class WebBattlefield implements IAbility {
     }
 
     @Override
-    public AbilityStat getAbilityStat() {
-        return new AbilityStat(0.06, 0.06);
+    public AbilityStats getAbilityStat() {
+        return null;
     }
 }

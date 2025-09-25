@@ -4,7 +4,7 @@ import com.willfp.ecoskills.api.EcoSkillsAPI;
 import com.willfp.ecoskills.api.modifiers.ModifierOperation;
 import com.willfp.ecoskills.api.modifiers.StatModifier;
 import com.willfp.ecoskills.stats.Stat;
-import me.psikuvit.betterPets.abilities.AbilityStat;
+import me.psikuvit.betterPets.abilities.AbilityStats;
 import me.psikuvit.betterPets.abilities.IAbility;
 import me.psikuvit.betterPets.pet.Pet;
 import me.psikuvit.betterPets.utils.PetUtils;
@@ -22,16 +22,23 @@ public class Superior implements IAbility {
     @Override
     public void onEquip(Player paramPlayer) {
         Pet pet = playerPetManager.getActivePet(paramPlayer);
+        if (pet == null) return;
+
+        double percentageIncrease = (0.1 + (0.1 * (pet.getLevel() - 1))) / 100.0;
 
         for (String statString : stats) {
             Stat stat = Stats.valueOf(statString.toUpperCase()).getStat();
 
-            double statValue = EcoSkillsAPI.getStatLevel(paramPlayer, stat);
-            statValue = statValue * (1 + getAbilityStat().getValueAtLevel(pet.getLevel()));
+            double currentStatValue = EcoSkillsAPI.getStatLevel(paramPlayer, stat);
+            double bonusStatValue = currentStatValue * percentageIncrease;
 
-            StatModifier modifier = new StatModifier(PetUtils.createOtherStatModifier(stat, ModifierOperation.ADD), stat, statValue, ModifierOperation.ADD);
+            StatModifier modifier = new StatModifier(
+                    PetUtils.createOtherStatModifier(stat),
+                    stat,
+                    bonusStatValue,
+                    ModifierOperation.ADD
+            );
             EcoSkillsAPI.addStatModifier(paramPlayer, modifier);
-
         }
     }
 
@@ -39,13 +46,12 @@ public class Superior implements IAbility {
     public void onUnequip(Player paramPlayer) {
         for (String statString : stats) {
             Stat stat = Stats.valueOf(statString.toUpperCase()).getStat();
-            EcoSkillsAPI.removeStatModifier(paramPlayer, PetUtils.createOtherStatModifier(stat, ModifierOperation.ADD));
-
+            EcoSkillsAPI.removeStatModifier(paramPlayer, PetUtils.createOtherStatModifier(stat));
         }
     }
 
     @Override
-    public AbilityStat getAbilityStat() {
-        return new AbilityStat(0.1, 0.1);
+    public AbilityStats getAbilityStat() {
+        return null;
     }
 }

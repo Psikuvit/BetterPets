@@ -1,10 +1,11 @@
 package me.psikuvit.betterPets.abilities.ghoul;
 
-import me.psikuvit.betterPets.abilities.AbilityStat;
+import me.psikuvit.betterPets.abilities.AbilityStats;
 import me.psikuvit.betterPets.abilities.IAbility;
 import org.bukkit.entity.Player;
 
 public class UndeadSlayer implements IAbility {
+
     @Override
     public void onEquip(Player owner) {
     }
@@ -13,11 +14,9 @@ public class UndeadSlayer implements IAbility {
     public void onUnequip(Player owner) {
     }
 
-    
-
     @Override
-    public AbilityStat getAbilityStat() {
-        return new AbilityStat(1.005D, 0.005D);
+    public AbilityStats getAbilityStat() {
+        return null;
     }
 }
 

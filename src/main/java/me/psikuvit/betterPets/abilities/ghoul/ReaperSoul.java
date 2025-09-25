@@ -1,6 +1,6 @@
 package me.psikuvit.betterPets.abilities.ghoul;
 
-import me.psikuvit.betterPets.abilities.AbilityStat;
+import me.psikuvit.betterPets.abilities.AbilityStats;
 import me.psikuvit.betterPets.abilities.IAbility;
 import org.bukkit.entity.Player;
 
@@ -16,8 +16,8 @@ public class ReaperSoul implements IAbility {
     
 
     @Override
-    public AbilityStat getAbilityStat() {
-        return new AbilityStat(0.3, 0.3);
+    public AbilityStats getAbilityStat() {
+        return null;
     }
 }
 

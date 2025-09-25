@@ -7,7 +7,6 @@ public class AbilityBuilder {
 
     private String name;
     private List<String> description;
-
     private IAbility implementation;
 
     public AbilityBuilder name(String name) {

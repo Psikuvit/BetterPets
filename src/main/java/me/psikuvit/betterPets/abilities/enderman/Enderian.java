@@ -1,7 +1,8 @@
 package me.psikuvit.betterPets.abilities.enderman;
 
-import me.psikuvit.betterPets.abilities.AbilityStat;
+import me.psikuvit.betterPets.abilities.AbilityStats;
 import me.psikuvit.betterPets.abilities.IAbility;
+import me.psikuvit.betterPets.pet.Pet;
 import org.bukkit.World;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -20,19 +21,25 @@ public class Enderian implements IAbility {
 
     @Override
     public void handleEvent(Event event, Player owner) {
-        if (event instanceof EntityDamageByEntityEvent entityEvent) {
-            if (entityEvent.getDamager() instanceof LivingEntity damager) {
-                if (damager.getWorld().getEnvironment() == World.Environment.THE_END) {
-                    double damageMultiplier = getAbilityStat().getValueAtLevel(owner.getLevel());
-                    entityEvent.setDamage(entityEvent.getDamage() * (1 - damageMultiplier));
+        if (!(event instanceof EntityDamageByEntityEvent entityEvent)) return;
+        if (!(entityEvent.getEntity() instanceof Player player)) return;
+        if (!player.equals(owner)) return;
+        if (!(entityEvent.getDamager() instanceof LivingEntity damager)) return;
 
-                }
-            }
+        if (damager.getWorld().getEnvironment() == World.Environment.THE_END) {
+            Pet pet = playerPetManager.getActivePet(owner);
+            if (pet == null) return;
+
+            double damageReduction = (0.3 + (0.3 * (pet.getLevel() - 1))) / 100.0;
+            double originalDamage = entityEvent.getFinalDamage();
+            double newDamage = originalDamage * (1 - damageReduction);
+
+            entityEvent.setDamage(newDamage);
         }
     }
 
     @Override
-    public AbilityStat getAbilityStat() {
-        return new AbilityStat(0.3, 0.3);
+    public AbilityStats getAbilityStat() {
+        return null;
     }
 }

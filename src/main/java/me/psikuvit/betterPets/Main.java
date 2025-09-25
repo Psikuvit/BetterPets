@@ -1,12 +1,14 @@
 package me.psikuvit.betterPets;
 
+import me.psikuvit.betterPets.abilities.MountManager;
 import me.psikuvit.betterPets.api.PetAPI;
 import me.psikuvit.betterPets.autopet.AutoPetRuleService;
 import me.psikuvit.betterPets.commands.PetCommand;
 import me.psikuvit.betterPets.config.PetItemLoader;
 import me.psikuvit.betterPets.config.PetSkinLoader;
 import me.psikuvit.betterPets.database.DatabaseManager;
-import me.psikuvit.betterPets.hooks.PetPlaceholders;
+import me.psikuvit.betterPets.hooks.PAPIHook;
+import me.psikuvit.betterPets.hooks.WorldGuardHook;
 import me.psikuvit.betterPets.listeners.actions.RulesListener;
 import me.psikuvit.betterPets.listeners.actions.SkillsListener;
 import me.psikuvit.betterPets.listeners.gui.AutoPetListener;
@@ -34,8 +36,10 @@ public final class Main extends JavaPlugin implements Listener {
     private PlayerPetManager petManager;
     private AutoPetRuleService autoPetRuleService;
     private static Main instance;
-    private PetPlaceholders placeholders;
+    private PAPIHook placeholders;
+    private WorldGuardHook worldGuardHook;
     private DatabaseManager databaseManager;
+    private MountManager mountManager;
 
     @Override
     public void onEnable() {
@@ -48,12 +52,13 @@ public final class Main extends JavaPlugin implements Listener {
 
             // Initialize core components
             getLogger().info("Initializing core components...");
-            registryPetManager = new PetManager(this);
+            registryPetManager = new PetManager();
             petSkinLoader = new PetSkinLoader(this);
             petItemLoader = new PetItemLoader(this);
             databaseManager = new DatabaseManager(this);
             petManager = new PlayerPetManager(this);
             autoPetRuleService = new AutoPetRuleService(this);
+            mountManager = new MountManager();
 
             // Initialize API and Messages
             PetAPI.init(this);
@@ -74,11 +79,9 @@ public final class Main extends JavaPlugin implements Listener {
             databaseManager.initialize();
 
             // PlaceholderAPI integration
-            if (getServer().getPluginManager().getPlugin("PlaceholderAPI") == null) {
-                getLogger().info("PlaceholderAPI not found, skipping integration.");
-            } else {
-                setupPlaceholderAPI();
-            }
+
+            setupPlaceholderAPI();
+            setupWorldGuard();
 
             // Register event listeners
             getLogger().info("Registering event listeners...");
@@ -92,9 +95,6 @@ public final class Main extends JavaPlugin implements Listener {
             getLogger().info("BetterPets has been successfully enabled!");
         } catch (Exception e) {
             getLogger().severe("Failed to enable BetterPets: " + e.getMessage());
-            if (getConfig().getBoolean("debug", false)) {
-                e.printStackTrace();
-            }
             getServer().getPluginManager().disablePlugin(this);
         }
     }
@@ -115,20 +115,13 @@ public final class Main extends JavaPlugin implements Listener {
                     }
                 }
                 getLogger().info("Deactivated " + deactivatedCount + " active pets");
+                petManager.cleanup();
             }
 
-            // Shutdown database
-            if (databaseManager != null) {
-                getLogger().info("Shutting down database connections...");
-                databaseManager.shutdown();
-            }
 
             getLogger().info("BetterPets has been disabled successfully");
         } catch (Exception e) {
             getLogger().severe("Error occurred during plugin shutdown: " + e.getMessage());
-            if (getConfig().getBoolean("debug", false)) {
-                e.printStackTrace();
-            }
         }
     }
 
@@ -182,15 +175,35 @@ public final class Main extends JavaPlugin implements Listener {
         return autoPetRuleService;
     }
 
+    public MountManager getMountManager() {
+        return mountManager;
+    }
+
+    public WorldGuardHook getWorldGuardHook() {
+        return worldGuardHook;
+    }
+
     private void setupPlaceholderAPI() {
         try {
             if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
-                placeholders = new PetPlaceholders(this);
+                placeholders = new PAPIHook(this);
                 placeholders.register();
             }
             getLogger().info("Successfully hooked into PlaceholderAPI!");
         } catch (Exception e) {
             getLogger().warning("Failed to initialize PlaceholderAPI integration: " + e.getMessage());
+        }
+    }
+
+    private void setupWorldGuard() {
+        try {
+            if (Bukkit.getPluginManager().isPluginEnabled("WorldGuard")) {
+                worldGuardHook = new WorldGuardHook();
+                worldGuardHook.setupWorldGuard(this);
+            }
+            getLogger().info("Successfully hooked into WorldGuard!");
+        } catch (Exception e) {
+            getLogger().warning("Failed to initialize WorldGuard integration: " + e.getMessage());
         }
     }
 }

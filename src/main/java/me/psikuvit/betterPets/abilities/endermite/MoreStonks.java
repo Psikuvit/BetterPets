@@ -1,6 +1,6 @@
 package me.psikuvit.betterPets.abilities.endermite;
 
-import me.psikuvit.betterPets.abilities.AbilityStat;
+import me.psikuvit.betterPets.abilities.AbilityStats;
 import me.psikuvit.betterPets.abilities.IAbility;
 import me.psikuvit.betterPets.pet.Pet;
 import org.bukkit.Material;
@@ -30,9 +30,7 @@ public class MoreStonks implements IAbility {
         if (event instanceof BlockBreakEvent breakEvent) {
             if (breakEvent.getBlock().getType() != Material.END_STONE) return;
             Pet pet = playerPetManager.getActivePet(owner);
-            double chancePercentage = getAbilityStat().getValueAtLevel(pet.getLevel());
-
-            double chance = chancePercentage / 100.0;
+            double chance = (double) (1 + pet.getLevel()) / 100;
 
             if (random.nextDouble() < chance) {
                 ItemStack drop = new ItemStack(Material.END_STONE, 1);
@@ -43,8 +41,8 @@ public class MoreStonks implements IAbility {
     }
 
     @Override
-    public AbilityStat getAbilityStat() {
-        return new AbilityStat(1, 1);
+    public AbilityStats getAbilityStat() {
+        return null;
     }
 }
 

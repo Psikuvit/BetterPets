@@ -13,6 +13,7 @@ public class Keys {
     public static final NamespacedKey SKIN_ID_KEY = new NamespacedKey(Main.getInstance(), "pet_skin_id");
     public static final NamespacedKey PET_ITEM_KEY = new NamespacedKey(Main.getInstance(), "pet_item");
     public static final NamespacedKey TRIGGER_KEY = new NamespacedKey(Main.getInstance(), "trigger");
+    public static final NamespacedKey MOUNT_SPEED_KEY = new NamespacedKey(Main.getInstance(), "mount_speed");
 
     private Keys() {
         throw new AssertionError();
