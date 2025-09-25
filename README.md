@@ -278,8 +278,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Support
 
 - **Documentation**: Check this README and in-code JavaDoc
-- **Issues**: Report bugs via [GitHub Issues](https://github.com/your-repo/BetterPets/issues)
-- **Discussions**: Join our [Discord](https://discord.gg/your-server) for community support
+- **Issues**: Report bugs via [GitHub Issues](https://github.com/Psikuvit/BetterPets/issues)
+- **Discussions**: Join our [Discord](https://discord.gg/vbBy2ATa) for community support
 
 ---
 
